@@ -1,98 +1,48 @@
-// import logo from './logo.svg';
-// import './App.css';
-// import React, { useState } from "react";
-
-// let dict=
-// [
-
-//   { word: "React", meaning: "A JavaScript library for building user interfaces." },
-
-//   { word: "Component", meaning: "A reusable building block in React." },
-
-//   { word: "State", meaning: "An object that stores data for a component." }
-
-// ];
-
-
-// function App() {
-// const [word, setWord] = useState("");
-
-//   // console.log(dict[1]);
-//   const [refer, setRefer] = useState(""); 
-
-//   const getData = (word) => {
-//     let foundMeaning = "";
-//     dict.forEach((item) => {
-//       if (item.word === word) {
-//         foundMeaning = item.meaning;
-//       }
-//     });
-
-//     setRefer(foundMeaning);
-//   };
-
-// const handleWord=(e)=>{
-//   setWord(e.target.value);
-// }
-// const handleClick = ()=>{
-//   getData(word);
-// }
-
-//   return (
-//     <div className="App">
-//         <h1>Dictionary App</h1>
-//         <input type="text" placeholder="Search a word..." onChange={handleWord}/>
-//         <button onClick={handleClick}>Search</button>
-//         <h4>Definition:</h4><br/>
-//         {word &&
-//         <p>{refer || "Word not found in the dictionary."}</p>
-//         }
-
-//     </div>
-//   );
-// }
-
-// export default App;
+import "./App.css";
 import React, { useState } from "react";
 
-let dict = [
-  { word: "React", meaning: "A JavaScript library for building user interfaces." },
+const dict = [
+  {
+    word: "React",
+    meaning: "A JavaScript library for building user interfaces.",
+  },
+
   { word: "Component", meaning: "A reusable building block in React." },
-  { word: "State", meaning: "An object that stores data for a component." }
+
+  { word: "State", meaning: "An object that stores data for a component." },
 ];
 
 function App() {
-  const [word, setWord] = useState("");
+  const [data, setdata] = useState("");
   const [refer, setRefer] = useState("");
+  const findInput =(e)=>{
+    setdata(e,target.value);
+  }
 
-  const getData = (word) => {
-    let foundMeaning = "";
-    dict.forEach((item) => {
-      if (item.word.toLowerCase() === word.toLowerCase()) {
-        foundMeaning = item.meaning;
-      }
-    });
-
-    setRefer(foundMeaning);
+  const getData = () => {
+    const words = data.toLowerCase();
+    const findWord = dict.find(
+      (entry) => entry.word.toLowerCase() === words
+    );
+    if (findWord) {
+      setRefer(findWord.meaning);
+      setdata("");
+    } else {
+      setRefer("Word not found in the dict.");
+    }
   };
-
-  const handleWord = (e) => {
-    setWord(e.target.value);
-  };
-
-  const handleClick = () => {
-    getData(word);
-  };
-
   return (
     <div className="App">
       <h1>Dictionary App</h1>
-      <input type="text" placeholder="Search a word..." onChange={handleWord} />
-      <button onClick={handleClick}>Search</button>
-      <h4>Definition:</h4>
-      <br />
-      {word && refer && <p>{refer}</p>}
-      {word && !refer && <p>Word not found in the dictionary.</p>}
+      <input
+        value={data}
+        type="text"
+        placeholder="Search for a word..."
+        onChange={findInput}
+      />
+      <button onClick={getData}>Search</button>
+      <p>Definition:</p>
+      <p>{refer}</p>
     </div>
   );
 }
