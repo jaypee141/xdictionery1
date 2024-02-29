@@ -15,9 +15,15 @@ const dict = [
 function App() {
   const [data, setdata] = useState("");
   const [refer, setRefer] = useState("");
+
+  // console.log(dict[0]);
   const findInput =(e)=>{
     setdata(e,target.value);
   }
+  // let newData=()=>{
+
+  // }
+  let data1=[];
 
   const getData = () => {
     const words = data.toLowerCase();
